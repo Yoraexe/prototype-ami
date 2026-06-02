@@ -1,0 +1,71 @@
+{
+  "project_name": "prototype-ami",
+  "status": "active",
+  "entry_type": "greenfield",
+  "current_layer": "engineering",
+  "layer_statuses": {
+    "product": "done",
+    "design": "done",
+    "engineering": "pending",
+    "quality": "pending",
+    "devops": "pending"
+  },
+  "active_skills": ["brd-generation", "cuj-mapping"],
+  "retry_count": {
+    "product": 0,
+    "design": 0,
+    "engineering": 0,
+    "quality": 0,
+    "devops": 0
+  },
+  "completed_artifacts": [
+    "brd.md",
+    "design-system.md"
+  ],
+  "completed_files": [],
+  "history": [
+    {
+      "layer": "init",
+      "timestamp": "2026-06-02T12:12:44+08:00",
+      "action": "Project initialized by Astesia Agent",
+      "agent_note": "Initialized state for new project prototype-ami, routing to Product Layer."
+    },
+    {
+      "layer": "product",
+      "timestamp": "2026-06-02T12:21:46+08:00",
+      "action": "Generated BRD",
+      "agent_note": "Drafted initial BRD with mock integrations for OBE/IKU/SISTER. Waiting for human approval."
+    },
+    {
+      "layer": "product",
+      "timestamp": "2026-06-02T12:47:13+08:00",
+      "action": "Finalized BRD",
+      "agent_note": "User approved the Dynamic Form Engine approach for the 7 instruments. Moving to Design Layer."
+    },
+    {
+      "layer": "design",
+      "timestamp": "2026-06-02T12:48:45+08:00",
+      "action": "Finalized Design System",
+      "agent_note": "User approved the Modern Academic theme. Moving to Engineering Layer."
+    }
+  ],
+  "decisions": [],
+  "blocking_issues": [],
+  "metadata": {
+    "tech_stack": {
+      "runtime": "Node.js",
+      "framework": "SvelteKit",
+      "database": "Supabase (PostgreSQL) via Drizzle ORM",
+      "frontend": "Svelte + TailwindCSS"
+    },
+    "created_at": "2026-06-02T12:12:44+08:00",
+    "last_updated": "2026-06-02T12:12:44+08:00"
+  },
+  "context_paths": {
+    "brd": "./.astesia/brd.md",
+    "design_system": "./.astesia/design-system.md",
+    "architecture": "./.astesia/architecture.md",
+    "test_plan": "./.astesia/qa-test-plan.md",
+    "system_map": "./.astesia/system-map.md"
+  }
+}
