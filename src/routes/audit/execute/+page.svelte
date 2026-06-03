@@ -8,26 +8,31 @@
     {
       id: '1',
       code: 'IKU-3.1',
-      question: 'Dosen berkegiatan di luar kampus mencari pengalaman industri.',
-      evidenceUrl: 'https://gdrive.com/link-bukti-1.pdf',
-      score: null as number | null,
-      note: '',
-      showFindingForm: false,
+      question: 'Berapa persen dosen berkegiatan di luar kampus? (Target: 80%)',
+      category: 'SISTER',
+      evidenceUrl: '',
+      score: 2,
+      note: 'Target 80%, Aktual 55% (Berdasarkan data API SISTER).',
+      showFindingForm: true,
       findingType: 'KTS',
-      findingDescription: '',
-      findingRecommendation: ''
+      findingDescription: 'Persentase dosen berkegiatan di luar kampus berada di bawah target IKU.',
+      findingRecommendation: '',
+      autoScored: true,
+      actualValue: '55%'
     },
     {
       id: '2',
       code: 'OBE-A1',
       question: 'Kurikulum program studi memuat CPL yang jelas dan terukur.',
+      category: 'OBE',
       evidenceUrl: 'https://gdrive.com/link-bukti-2.pdf',
       score: null as number | null,
       note: '',
       showFindingForm: false,
       findingType: 'KTS',
       findingDescription: '',
-      findingRecommendation: ''
+      findingRecommendation: '',
+      autoScored: false
     }
   ]);
 
@@ -79,20 +84,37 @@
               <span class="px-2 py-1 bg-primary-light bg-opacity-20 text-primary-dark text-xs font-bold rounded">{item.code}</span>
               <h2 class="text-lg font-semibold text-text-main mt-3">{item.question}</h2>
             </div>
-            <a href={item.evidenceUrl} target="_blank" class="ml-4 flex items-center space-x-2 px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50 text-sm font-medium text-text-muted transition-colors">
-              <span>📄 Lihat Bukti</span>
-            </a>
+            {#if item.evidenceUrl}
+              <a href={item.evidenceUrl} target="_blank" class="ml-4 flex items-center space-x-2 px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50 text-sm font-medium text-text-muted transition-colors">
+                <span>📄 Lihat Bukti</span>
+              </a>
+            {/if}
           </div>
         </div>
 
         <!-- Scoring Section -->
         <div class="p-6">
-          <label class="block text-sm font-semibold text-text-main mb-3">Penilaian (Skor 1-4)</label>
+          <div class="flex justify-between items-center mb-3">
+            <label class="block text-sm font-semibold text-text-main">Penilaian (Skor 1-4)</label>
+            {#if item.autoScored}
+              <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full">🤖 Auto-Scored via API {item.category} (Capaian: {item.actualValue})</span>
+            {/if}
+          </div>
+          
           <div class="flex space-x-4 mb-6">
             {#each [1, 2, 3, 4] as scoreOption}
               <button 
-                class="w-12 h-12 rounded-lg font-bold text-lg border-2 transition-all {item.score === scoreOption ? 'bg-primary text-white border-primary' : 'bg-white text-text-muted border-gray-200 hover:border-primary-light'}"
-                onclick={() => handleScoreChange(i, scoreOption)}
+                class="flex-1 py-3 border-2 rounded-xl font-bold text-lg transition-all
+                  {item.score === scoreOption 
+                    ? 'border-primary bg-primary-light text-primary-dark bg-opacity-20' 
+                    : 'border-gray-200 text-gray-400 hover:border-gray-300'}
+                  {item.autoScored ? 'opacity-70 cursor-not-allowed' : ''}
+                "
+                onclick={() => {
+                  if (item.autoScored) return;
+                  handleScoreChange(i, scoreOption);
+                }}
+                disabled={item.autoScored}
               >
                 {scoreOption}
               </button>

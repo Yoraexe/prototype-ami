@@ -1,35 +1,34 @@
-<script lang="ts">
-  import { auth } from '$lib/state/auth.svelte';
-
   let items = $state([
     {
       id: '1',
       code: 'IKU-3.1',
-      question: 'Dosen berkegiatan di luar kampus mencari pengalaman industri.',
-      category: 'IKU',
-      evidenceUrl: 'https://gdrive.com/link-bukti-1.pdf',
-      status: 'Terisi'
+      question: 'Berapa persen dosen berkegiatan di luar kampus?',
+      category: 'SISTER',
+      status: 'Terhubung',
+      apiData: 'Target: 80% | Aktual: 55% | Dosen Publikasi: 11/20',
+      isCompliant: false
     },
     {
       id: '2',
       code: 'OBE-A1',
       question: 'Kurikulum program studi memuat CPL yang jelas dan terukur.',
       category: 'OBE',
-      evidenceUrl: '',
-      status: 'Kosong'
+      status: 'Terhubung',
+      apiData: 'Total MK: 45 | MK dgn CPL: 45',
+      isCompliant: true
     }
   ]);
 </script>
 
 <svelte:head>
-  <title>Unggah Bukti Kinerja | AMIPro</title>
+  <title>Tinjau Bukti Digital | AMIPro</title>
 </svelte:head>
 
 <div class="space-y-6 max-w-5xl mx-auto">
   <div class="bg-surface p-6 rounded-xl shadow-soft">
     <div class="flex justify-between items-start">
       <div>
-        <h1 class="text-2xl font-bold text-text-main">Unggah Bukti Kinerja (Borang)</h1>
+        <h1 class="text-2xl font-bold text-text-main">Tinjauan Bukti Digital (API)</h1>
         <p class="text-text-muted mt-1">Periode: <strong class="text-primary">AMI Semester Gasal 2025/2026</strong></p>
       </div>
       <div class="text-right">
@@ -42,7 +41,7 @@
   <div class="bg-blue-50 border-l-4 border-status-info p-4 rounded-r-lg">
     <div class="flex">
       <span class="text-status-info text-xl mr-3">ℹ️</span>
-      <p class="text-sm text-blue-800">Harap lampirkan tautan (Google Drive / OneDrive) yang dapat diakses oleh Auditor untuk masing-masing poin di bawah ini sebelum batas waktu berakhir.</p>
+      <p class="text-sm text-blue-800">Bukti-bukti di bawah ini <strong>ditarik secara otomatis secara Real-Time</strong> dari API SISTER dan OBE. Anda (Auditee) hanya perlu memverifikasi apakah data yang ditarik sudah sesuai dengan data pusat sebelum diserahkan ke Auditor.</p>
     </div>
   </div>
 
@@ -54,27 +53,24 @@
             <span class="px-2 py-1 bg-primary-light bg-opacity-20 text-primary-dark text-xs font-bold rounded mr-2">{item.code}</span>
             <span class="px-2 py-1 bg-gray-200 text-gray-700 text-xs font-bold rounded">{item.category}</span>
           </div>
-          {#if item.evidenceUrl}
-            <span class="text-xs font-bold text-status-success flex items-center">✅ Dokumen Terlampir</span>
-          {:else}
-            <span class="text-xs font-bold text-status-warning flex items-center">⚠️ Belum Ada Bukti</span>
-          {/if}
+          <span class="text-xs font-bold text-status-success flex items-center">✅ Data API Terhubung</span>
         </div>
         
         <div class="p-5">
           <p class="text-lg font-medium text-text-main mb-4">{item.question}</p>
           
-          <label class="block text-sm font-semibold text-gray-700 mb-2">Tautan Dokumen Bukti (URL)</label>
-          <div class="flex space-x-3">
-            <input 
-              type="url" 
-              bind:value={item.evidenceUrl}
-              placeholder="Masukkan link Google Drive / folder bukti..."
-              class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
-            />
-            <button class="px-6 py-2 bg-primary text-white font-bold rounded-lg hover:bg-primary-dark transition-colors">
-              Simpan Link
-            </button>
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 font-mono text-sm">
+            <p class="text-gray-500 mb-1">Response API ({item.category}):</p>
+            <p class="text-gray-800 font-bold">{item.apiData}</p>
+            
+            <div class="mt-3 flex items-center">
+              <span class="text-xs text-gray-500 mr-2">Estimasi Capaian:</span>
+              {#if item.isCompliant}
+                <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-bold rounded">Memenuhi Target</span>
+              {:else}
+                <span class="px-2 py-1 bg-red-100 text-red-800 text-xs font-bold rounded">Di Bawah Target (Berpotensi KTS)</span>
+              {/if}
+            </div>
           </div>
         </div>
       </div>
@@ -83,7 +79,7 @@
 
   <div class="flex justify-end pt-4 border-t border-gray-200">
     <button class="px-6 py-3 bg-status-success text-white font-bold rounded-xl shadow hover:bg-green-600 transition-colors">
-      Kirim Borang ke Auditor
+      Setujui & Teruskan ke Auditor
     </button>
   </div>
 </div>

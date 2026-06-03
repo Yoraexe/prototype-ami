@@ -8,12 +8,12 @@
       <h1 class="text-3xl font-bold text-text-main">Instrumen Dinamis</h1>
       <p class="text-text-muted mt-1">Konfigurasi daftar tilik dan parameter OBE/IKU/SISTER.</p>
     </div>
-    <div class="space-x-3">
-      <button class="px-4 py-2 bg-surface border border-gray-300 text-text-main font-semibold rounded-lg shadow hover:bg-gray-50 transition-colors">
-        Import CSV (OBE/IKU)
+    <div class="flex space-x-3">
+      <button class="px-4 py-2 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors flex items-center">
+        <span class="mr-2">🔄</span> Tarik Data API (SISTER/OBE)
       </button>
       <button class="px-4 py-2 bg-primary text-white font-semibold rounded-lg shadow hover:bg-primary-dark transition-colors">
-        + Tambah Poin Manual
+        + Poin Baru
       </button>
     </div>
   </div>
